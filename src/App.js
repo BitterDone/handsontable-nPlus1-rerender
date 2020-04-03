@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Handsontable from 'handsontable';
+import { HotTable } from '@handsontable/react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [testStateCounter, setTestStateCounter] = useState(0);
+
+    const _test = (changes, source) => {
+        console.log(testStateCounter)
+        // setTestStateCounter(testStateCounter+1)
+    }
+
+    Handsontable.hooks.add('afterChange', _test);
+
+    return (<div id="hot-app">
+        <HotTable settings={{
+            data: [['1']],
+            rowHeaders: true,
+            colHeaders: ['', 'comments'],
+            licenseKey: 'non-commercial-and-evaluation',
+            width: 500,
+            height: 100,
+        }}/>
+    </div>);
 }
 
 export default App;
